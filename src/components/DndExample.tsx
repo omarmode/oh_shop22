@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-// import { cardsData } from "./cardsData.js";
-import { cardsData } from "./cardsData.js";
+import { cardsData } from "./cardsData";
+import axios from "axios";
+
 import {
   Draggable,
   DragDropContext,
@@ -19,6 +20,7 @@ import {
 interface Image {
   src: string;
   originalSection: string;
+  content: string;
 }
 
 interface Component {
@@ -38,6 +40,53 @@ const DndExample = () => {
   const [previewSections, setPreviewSections] = useState<Set<string>>(
     new Set()
   );
+
+  // دالة لإرسال البيانات إلى الـ API باستخدام Axios
+  const saveChangesToApi = async (dataToSave: any) => {
+    try {
+      const response = await axios.post(
+        "https://app.onshophq.com/api/store/configs", // Replace with your actual API endpoint
+        dataToSave,
+        {
+          headers: {
+            "store-id": 7, // Add the store-id header
+          },
+        }
+      );
+      console.log("Response from API:", response.data);
+      // You can add code here to handle the successful response from the server
+    } catch (error) {
+      console.error("Error sending data to API:", error);
+      // You can add code here to handle errors
+    }
+  };
+
+  // دالة للتعامل مع النقر على زر الحفظ
+  const handleClickSaveChanges = () => {
+    // العثور على بيانات قسم المعاينة
+    const previewData = data.find((card) => card.id === 3);
+
+    if (previewData) {
+      const dataToLog = {
+        components: [
+          {
+            name: previewData.components[0].name,
+            images: previewData.components[0].images.map((img) => ({
+              content: img.content,
+              originalSection: img.originalSection,
+            })),
+          },
+        ],
+      };
+
+      console.log("Preview section data:", dataToLog);
+
+      // إرسال البيانات إلى الـ API عند النقر على زر الحفظ
+      saveChangesToApi(dataToLog); // تمرير dataToSave كوسيط للدالة
+    } else {
+      console.warn("Preview section data not found.");
+    }
+  };
 
   const onDragEnd = (result: DropResult) => {
     const { source, destination } = result;
@@ -126,7 +175,21 @@ const DndExample = () => {
       return;
     }
 
-    console.log("Updated data:", newData);
+    // Log the updated data excluding src
+    const dataToLog = newData.map((card) => ({
+      id: card.id,
+      title: card.title,
+      components: card.components.map((comp) => ({
+        id: comp.id,
+        name: comp.name,
+        images: comp.images.map((img) => ({
+          content: img.content,
+          originalSection: img.originalSection, // Include originalSection in the log
+        })),
+      })),
+    }));
+
+    console.log("Updated data:", dataToLog);
     setData(newData);
   };
 
@@ -145,7 +208,7 @@ const DndExample = () => {
 
         <button
           className="bg-green-600 hover:bg-green-700 text-white font-medium text-sm py-2 px-4 rounded flex items-center"
-          onClick={() => console.log(data)}
+          onClick={handleClickSaveChanges}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -211,7 +274,6 @@ const DndExample = () => {
             ))}
           </div>
 
-          {/* Group 4 */}
           {/* Group 4 */}
           <Droppable droppableId={`droppable${data[3].id}`} key={data[3].id}>
             {(provided) => (
