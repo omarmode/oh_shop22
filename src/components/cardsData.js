@@ -17,16 +17,16 @@ export const cardsData = [
             originalSection: "Banners",
             content: "banner2",
           },
-          {
-            src: "https://res.cloudinary.com/dyufmizpc/image/upload/v1720339527/banner-3_saqmcd.png",
-            originalSection: "Banners",
-            content: "banner3",
-          },
-          {
-            src: "https://res.cloudinary.com/dyufmizpc/image/upload/v1720339533/banner-4_kiwju3.png",
-            originalSection: "Banners",
-            content: "banner4",
-          },
+          // {
+          //   src: "https://res.cloudinary.com/dyufmizpc/image/upload/v1720339527/banner-3_saqmcd.png",
+          //   originalSection: "Banners",
+          //   content: "banner3",
+          // },
+          // {
+          //   src: "https://res.cloudinary.com/dyufmizpc/image/upload/v1720339533/banner-4_kiwju3.png",
+          //   originalSection: "Banners",
+          //   content: "banner4",
+          // },
         ],
       },
     ],
@@ -49,16 +49,16 @@ export const cardsData = [
             originalSection: "Categories",
             content: "category2",
           },
-          {
-            src: "https://res.cloudinary.com/dyufmizpc/image/upload/v1720340530/cat-3_fvrvsw.png",
-            originalSection: "Categories",
-            content: "category3",
-          },
-          {
-            src: "https://res.cloudinary.com/dyufmizpc/image/upload/v1720340530/cat-4_hls1km.png",
-            originalSection: "Categories",
-            content: "category4",
-          },
+          // {
+          //   src: "https://res.cloudinary.com/dyufmizpc/image/upload/v1720340530/cat-3_fvrvsw.png",
+          //   originalSection: "Categories",
+          //   content: "category3",
+          // },
+          // {
+          //   src: "https://res.cloudinary.com/dyufmizpc/image/upload/v1720340530/cat-4_hls1km.png",
+          //   originalSection: "Categories",
+          //   content: "category4",
+          // },
         ],
       },
     ],
